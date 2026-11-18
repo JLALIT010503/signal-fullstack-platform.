@@ -1,0 +1,21 @@
+{
+  "name": "SIGNAL WF-07: Conversion Event Recorded",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (conversion_event_recorded)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "conversion_event_recorded",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Recompute Cohort Attribution & Experiment Lift",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "={{$env.SIGNAL_APP_URL}}/api/v1/analytics/growth",
+        "method": "GET"
+      }
+    }
+  ]
+}

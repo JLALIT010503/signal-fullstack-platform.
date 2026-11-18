@@ -1,0 +1,83 @@
+# 11 — Environment Variable Template & Secrets Governance: SIGNAL
+
+**Document Version:** 1.0.0  
+**Target File:** `.env.example` (Committed) / `.env.local` (Git-Ignored Local Secrets) / Vercel Encrypted Environment Variables
+
+---
+
+## 1. Complete `.env.example` Template
+
+```dotenv
+# ============================================================================
+# SIGNAL — Student Intelligence, Guidance & Nurturing Agent Layer
+# Environment Configuration Template (.env.example)
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 1. APPLICATION & RUNTIME ENVIRONMENT
+# ----------------------------------------------------------------------------
+NODE_ENV="development"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+NEXT_PUBLIC_APP_NAME="SIGNAL Intelligence Platform"
+NEXT_PUBLIC_DEFAULT_INSTITUTION_NAME="Apex Institute of Technology & Management"
+
+# ----------------------------------------------------------------------------
+# 2. SUPABASE (POSTGRESQL 16 + PGVECTOR + AUTH + REALTIME + STORAGE)
+# ----------------------------------------------------------------------------
+NEXT_PUBLIC_SUPABASE_URL="https://your-project-ref.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+# CRITICAL: Server-only key. NEVER prefix with NEXT_PUBLIC_ or expose to client bundles.
+SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+DATABASE_URL="postgresql://postgres:your-db-password@db.your-project-ref.supabase.co:5432/postgres"
+
+# ----------------------------------------------------------------------------
+# 3. OPENAI API & AGENTS SDK CONFIGURATION
+# ----------------------------------------------------------------------------
+OPENAI_API_KEY="sk-proj-your-openai-api-key"
+OPENAI_SUPERVISOR_MODEL="gpt-4o-2024-08-06"
+OPENAI_FAST_CLASSIFIER_MODEL="gpt-4o-mini"
+OPENAI_EMBEDDING_MODEL="text-embedding-3-small"
+# Guardrail thresholds (0.00 to 1.00)
+SIGNAL_MIN_RAG_SIMILARITY="0.78"
+SIGNAL_MIN_AUTO_SEND_CONFIDENCE="0.82"
+SIGNAL_OUTBOUND_COOLDOWN_HOURS="18"
+
+# ----------------------------------------------------------------------------
+# 4. OMNICHANNEL MESSAGING INTEGRATIONS (WHATSAPP CLOUD API & RESEND)
+# ----------------------------------------------------------------------------
+WHATSAPP_API_VERSION="v21.0"
+WHATSAPP_PHONE_NUMBER_ID="109283746512345"
+WHATSAPP_BUSINESS_ACCOUNT_ID="987654321098765"
+WHATSAPP_ACCESS_TOKEN="EAAGm0PX4ZCps..."
+WHATSAPP_VERIFY_TOKEN="signal_whatsapp_webhook_verify_token_2026"
+WHATSAPP_APP_SECRET="a1b2c3d4e5f60718293a4b5c6d7e8f90"
+
+RESEND_API_KEY="re_123456789_abcdefghijklmnop"
+RESEND_FROM_EMAIL="Admissions Guidance <admissions@signal-institute.edu>"
+RESEND_WEBHOOK_SECRET="whsec_your_resend_svix_secret"
+
+# ----------------------------------------------------------------------------
+# 5. WORKFLOW AUTOMATION & PUBLIC DATA INGESTION (N8N & FIRECRAWL)
+# ----------------------------------------------------------------------------
+N8N_WEBHOOK_BASE_URL="https://n8n.signal-institute.edu/webhook"
+N8N_SIGNING_SECRET="sig_hmac_n8n_shared_secret_9f8e7d6c5b4a"
+FIRECRAWL_API_KEY="fc-your-firecrawl-api-key"
+
+# ----------------------------------------------------------------------------
+# 6. PRODUCT ANALYTICS & ERROR OBSERVABILITY (POSTHOG & SENTRY)
+# ----------------------------------------------------------------------------
+NEXT_PUBLIC_POSTHOG_KEY="phc_your_posthog_project_key"
+NEXT_PUBLIC_POSTHOG_HOST="https://us.i.posthog.com"
+SENTRY_DSN="https://examplePublicKey@o0.ingest.sentry.io/0"
+SENTRY_AUTH_TOKEN="sntrys_your_sentry_auth_token"
+```
+
+---
+
+## 2. Secret Protection & Runtime Validation Contract (`src/lib/env.ts`)
+
+1. **Client/Server Boundary Enforcement:**
+   - Only variables prefixed with `NEXT_PUBLIC_` are accessible in browser bundles.
+   - `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_APP_SECRET`, `RESEND_API_KEY`, `N8N_SIGNING_SECRET`, and `FIRECRAWL_API_KEY` are imported exclusively inside Server Route Handlers (`src/app/api/**`) and server libraries (`import 'server-only'`).
+2. **Zero-Config P0 Demo Fallback Mode:**
+   - When running in a local or sandboxed evaluation environment where external cloud keys (`OPENAI_API_KEY` or live `SUPABASE_SERVICE_ROLE_KEY`) are not yet provisioned, `src/lib/env.ts` automatically detects demo mode and activates the **Deterministic Local Execution & Persistence Layer**, allowing all 8 screens, the 9 specialist agent tools, hybrid knowledge search, multilingual drafting, and conversion tracking to run with 100% real state mutations out of the box.

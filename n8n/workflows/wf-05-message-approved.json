@@ -1,0 +1,21 @@
+{
+  "name": "SIGNAL WF-05: Message Approved by Human Counsellor",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (message_approved)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "message_approved",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Dispatch via WhatsApp Cloud API or Resend",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "={{$env.SIGNAL_APP_URL}}/api/v1/communications/send",
+        "method": "POST"
+      }
+    }
+  ]
+}

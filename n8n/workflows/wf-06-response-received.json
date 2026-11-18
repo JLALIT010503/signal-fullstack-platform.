@@ -1,0 +1,21 @@
+{
+  "name": "SIGNAL WF-06: Prospect Response Received",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (response_received)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "response_received",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Cancel Pending Automated Drip Tasks & Re-Run Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "={{$env.SIGNAL_APP_URL}}/api/v1/agent/execute",
+        "method": "POST"
+      }
+    }
+  ]
+}
