@@ -380,10 +380,8 @@ export function SignalWorkspace({
           <div className="p-4 border-b border-slate-800/80 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-violet-600 to-teal-400 flex items-center justify-center font-bold text-xs text-slate-950">
-                SG
               </div>
               <div>
-                <div className="font-bold tracking-tight text-sm text-white">SIGNAL</div>
                 <img src="/signal-logo.jpg" alt="SIGNAL" className="h-9 w-9 rounded-lg object-cover border border-violet-500/40 shrink-0" />
               </div>
             </div>
