@@ -5,9 +5,9 @@ export const metadata = {
   title: 'SIGNAL — Student Intelligence, Guidance & Nurturing Agent Layer',
   description: 'Autonomous Student Acquisition, Qualification, Engagement & Conversion Intelligence Platform',
   icons: {
-  icon: '/browser-logo.jpg?v=4',
-  shortcut: '/browser-logo.jpg?v=4',
-  apple: '/browser-logo.jpg?v=4',
+  icon: '/browser-logo.png?v=5',
+  shortcut: '/browser-logo.png?v=5',
+  apple: '/browser-logo.png?v=5',
 },
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
