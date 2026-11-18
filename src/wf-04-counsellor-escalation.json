@@ -1,0 +1,21 @@
+{
+  "name": "SIGNAL WF-04: Counsellor Escalation",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (counsellor_escalation)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "counsellor_escalation",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Notify Assigned Counsellor Queue",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "={{$env.SIGNAL_APP_URL}}/api/v1/tasks",
+        "method": "PATCH"
+      }
+    }
+  ]
+}

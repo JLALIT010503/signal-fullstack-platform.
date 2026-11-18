@@ -1,0 +1,21 @@
+{
+  "name": "SIGNAL WF-03: Follow-up Task Created",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (followup_task_created)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "followup_task_created",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Schedule SLA Reminder Timer",
+      "type": "n8n-nodes-base.wait",
+      "parameters": {
+        "amount": 15,
+        "unit": "minutes"
+      }
+    }
+  ]
+}

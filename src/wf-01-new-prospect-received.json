@@ -1,0 +1,29 @@
+{
+  "name": "SIGNAL WF-01: New Prospect Received",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (prospect.received)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "new_prospect_received",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Verify HMAC Signature",
+      "type": "n8n-nodes-base.crypto",
+      "parameters": {
+        "action": "hmac",
+        "type": "SHA256"
+      }
+    },
+    {
+      "name": "Trigger AI Supervisor Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "url": "={{$env.SIGNAL_APP_URL}}/api/v1/agent/execute",
+        "method": "POST"
+      }
+    }
+  ]
+}

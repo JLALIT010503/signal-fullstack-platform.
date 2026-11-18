@@ -1,0 +1,21 @@
+{
+  "name": "SIGNAL WF-02: AI Qualification Completed",
+  "nodes": [
+    {
+      "name": "Webhook Trigger (ai_qualification_completed)",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "ai_qualification_completed",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Branch by Lead Tier (HOT vs WARM vs NURTURE)",
+      "type": "n8n-nodes-base.switch",
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.payload.tier}}"
+      }
+    }
+  ]
+}
