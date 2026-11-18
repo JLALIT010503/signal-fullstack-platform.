@@ -4,8 +4,12 @@ import './globals.css';
 export const metadata = {
   title: 'SIGNAL — Student Intelligence, Guidance & Nurturing Agent Layer',
   description: 'Autonomous Student Acquisition, Qualification, Engagement & Conversion Intelligence Platform',
+  icons: {
+    icon: '/tab-icon.jpg?v=3',
+    shortcut: '/tab-icon.jpg?v=3',
+    apple: '/tab-icon.jpg?v=3',
+  },
 };
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
