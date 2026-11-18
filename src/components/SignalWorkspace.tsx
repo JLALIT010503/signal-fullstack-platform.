@@ -384,7 +384,7 @@ export function SignalWorkspace({
               </div>
               <div>
                 <div className="font-bold tracking-tight text-sm text-white">SIGNAL</div>
-                <div className="text-[11px] text-slate-400">AI + Growth + Education</div>
+                <img src="/signal-logo.jpg" alt="SIGNAL" className="h-9 w-9 rounded-lg object-cover border border-violet-500/40 shrink-0" />
               </div>
             </div>
             <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
